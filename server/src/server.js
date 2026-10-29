@@ -16,4 +16,5 @@ app.use((q,s)=>s.status(404).json({message:'API route not found.'}));app.use((e,
 if(localCodeRunner&&process.env.NODE_ENV==='production'){console.error('Local compiler mode is for private development only.');process.exit(1)}
 const port=Number(process.env.PORT)||5000;
 const onListen=()=>{console.log(`LearnSpace API running on http://${localCodeRunner?'127.0.0.1':'localhost'}:${port}`);console.log(emailConfigured()?`Email: ON via ${emailInfo().host} (from ${emailInfo().from})`:'Email: OFF. Set SMTP_* in server/.env to send real emails. Until then, emails are printed in this terminal.')};
-mongoose.connect(process.env.MONGODB_URI||'mongodb://127.0.0.1:27017/learnspace').then(()=>{if(localCodeRunner)app.listen(port,'127.0.0.1',onListen);else app.listen(port,onListen)}).catch(e=>{console.error('MongoDB connection failed:',e.message);process.exit(1)});
+const mongoUri=process.env.MONGO_URI||process.env.MONGODB_URI||'mongodb://127.0.0.1:27017/learnspace';
+mongoose.connect(mongoUri).then(()=>{if(localCodeRunner)app.listen(port,'127.0.0.1',onListen);else app.listen(port,onListen)}).catch(e=>{console.error('MongoDB connection failed:',e.message);process.exit(1)});

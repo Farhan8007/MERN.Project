@@ -54,7 +54,8 @@ const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math
 
 (async()=>{
   const {Course,Quiz}=await import('./src/models.js');
-  await mongoose.connect(process.env.MONGODB_URI,{serverSelectionTimeoutMS:10000});
+  const mongoUri=process.env.MONGO_URI||process.env.MONGODB_URI||'mongodb://127.0.0.1:27017/learnspace';
+  await mongoose.connect(mongoUri,{serverSelectionTimeoutMS:10000});
   const want=process.argv[3]||'Web Development Foundations';
   const course=await Course.findOne({title:want});
   if(!course){

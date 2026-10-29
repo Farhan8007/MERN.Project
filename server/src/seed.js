@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import {User,Course,Quiz} from './models.js';
 
-await mongoose.connect(process.env.MONGODB_URI||'mongodb://127.0.0.1:27017/learnspace');
+const mongoUri=process.env.MONGO_URI||process.env.MONGODB_URI||'mongodb://127.0.0.1:27017/learnspace';
+await mongoose.connect(mongoUri);
 
 const email=(process.env.ADMIN_EMAIL||'admin@example.com').toLowerCase();
 let admin=await User.findOne({email});

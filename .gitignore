@@ -2,5 +2,15 @@ node_modules/
 client/node_modules/
 server/node_modules/
 client/dist/
-server/.env
+
+# Environment files and credentials
 .env
+.env.*
+*.env
+client/.env
+client/.env.*
+server/.env
+server/.env.*
+!.env.example
+!client/.env.example
+!server/.env.example
